@@ -4,13 +4,15 @@ import { Physics } from '@react-three/rapier';
 import { Room } from './room/Room';
 import { PlayerController } from './room/PlayerController';
 import { PendulumExperiment } from './experiments/PendulumExperiment';
+import { TouchControls } from './room/TouchControls';
+import { isTouchDevice } from './room/touchInput';
 
 function App() {
   const [started, setStarted] = useState(false);
 
   return (
-    <div style={{ width: '100vw', height: '100vh', position: 'relative' }}>
-      <Canvas shadows camera={{ fov: 75, near: 0.1, far: 100 }}>
+    <div style={{ width: '100%', height: '100%', position: 'relative' }}>
+      <Canvas shadows dpr={[1, 1.5]} camera={{ fov: 75, near: 0.1, far: 100 }}>
         <Physics gravity={[0, -9.8, 0]}>
           <Room />
           <PlayerController />
@@ -34,6 +36,8 @@ function App() {
         }}
       />
 
+      {started && isTouchDevice && <TouchControls />}
+
       {!started && (
         <div
           onClick={() => setStarted(true)}
@@ -51,8 +55,12 @@ function App() {
             gap: 8,
           }}
         >
-          <div style={{ fontSize: 22 }}>클릭해서 실험실 입장</div>
-          <div style={{ fontSize: 14, opacity: 0.7 }}>WASD 이동 · 마우스 시점 · ESC로 잠금 해제</div>
+          <div style={{ fontSize: 22 }}>{isTouchDevice ? '탭해서' : '클릭해서'} 실험실 입장</div>
+          <div style={{ fontSize: 14, opacity: 0.7 }}>
+            {isTouchDevice
+              ? '왼쪽 드래그: 이동 · 오른쪽 드래그: 시점'
+              : 'WASD 이동 · 마우스 시점 · ESC로 잠금 해제'}
+          </div>
         </div>
       )}
     </div>

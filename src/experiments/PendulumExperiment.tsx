@@ -75,7 +75,7 @@ export function PendulumExperiment() {
       </group>
 
       <Html position={[0.6, 0.2, 0]} distanceFactor={6}>
-        <div style={{ background: 'rgba(20,20,24,0.85)', color: '#fff', padding: '8px 10px', borderRadius: 6, fontSize: 12, width: 190, fontFamily: 'monospace' }}>
+        <div style={{ background: 'rgba(20,20,24,0.85)', color: '#fff', padding: '8px 10px', borderRadius: 6, fontSize: 12, width: 190, fontFamily: 'monospace', pointerEvents: 'none' }}>
           <div>θ₀ = {initialAngleDeg}°, L = {length.toFixed(2)}m</div>
           <div>E = {energy.toFixed(3)} J/kg</div>
           <div>T(소각도 근사) = {theoreticalPeriod.toFixed(3)}s</div>
